@@ -1,21 +1,26 @@
 package com.example.management.DTO;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private long id;
 
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "manager_id")
+    private Employee manager;
 
-    private long manager_id;
+    @OneToMany(mappedBy = "manager")
+    private Set<Employee> subordinates = new HashSet<>();
 
     private String name;
 
-
-    private long role_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category_element role;
 
 
     private int dayOff_limit;
@@ -23,13 +28,6 @@ public class Employee {
 
     private String email;
 
-    public Employee(long manager_id, String name, long role_id, int dayOff_limit, String email) {
-        this.manager_id = manager_id;
-        this.name = name;
-        this.role_id = role_id;
-        this.dayOff_limit = dayOff_limit;
-        this.email = email;
-    }
 
     public Employee() {
     }
@@ -58,20 +56,20 @@ public class Employee {
         this.email = email;
     }
 
-    public long getManager_id() {
-        return manager_id;
+    public Employee getManager_id() {
+        return manager;
     }
 
-    public void setManager_id(long manager_id) {
-        this.manager_id = manager_id;
+    public void setManager_id(Employee manager) {
+        this.manager = manager;
     }
 
-    public long getRole_id() {
-        return role_id;
+    public Category_element getRole() {
+        return role;
     }
 
-    public void setRole_id(long role_id) {
-        this.role_id = role_id;
+    public void setRole(Category_element role) {
+        this.role = role;
     }
 
     public int getDayOff_limit() {

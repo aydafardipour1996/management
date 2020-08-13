@@ -1,20 +1,19 @@
 package com.example.management.service;
 
-import com.example.management.DAO.IEmployeeDAO;
+import com.example.management.DAO.IDao;
 import com.example.management.DTO.Employee;
 
 public class EmployeeServiceStub implements IEmployeeService {
 
-    private IEmployeeDAO employeeDAO;
+    private IDao employeeDAO;
 
     @Override
     public Employee fetchById(long id) {
-        Employee employee=new Employee();
-        employee.setManager_id(30);
+        Employee employee = new Employee();
         employee.setName("ayda");
         employee.setDayOff_limit(15);
         employee.setEmail("l.ayda@yahoo.com");
-        employee.setRole_id(10);
+        employee.setRole(null);
         return employee;
     }
 
@@ -24,12 +23,19 @@ public class EmployeeServiceStub implements IEmployeeService {
     }
 
     @Override
-    public IEmployeeDAO getEmployeeDAO() {
+    public IDao getEmployeeDAO() {
         return employeeDAO;
     }
 
     @Override
-    public void setEmployeeDAO(IEmployeeDAO employeeDAO) {
-this.employeeDAO=employeeDAO;
+    public void setEmployeeDAO(IDao employeeDAO) {
+        this.employeeDAO = employeeDAO;
     }
+
+    @Override
+    public Employee setEmployeeManager(long id) {
+        return null;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.management.service;
 
 import com.example.management.DAO.EmployeeDAO;
+import com.example.management.DAO.IDao;
 import com.example.management.DAO.IEmployeeDAO;
 import com.example.management.DTO.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,18 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public IEmployeeDAO getEmployeeDAO() {
+    public IDao getEmployeeDAO() {
         return null;
     }
 
     @Override
-    public void setEmployeeDAO(IEmployeeDAO employeeDAO) {
+    public void setEmployeeDAO(IDao employeeDAO) {
 
     }
+
+    @Override
+    public Employee setEmployeeManager(long id) {
+        return employeeDAO.setEmployeeManager(id);
+    }
+
 }
