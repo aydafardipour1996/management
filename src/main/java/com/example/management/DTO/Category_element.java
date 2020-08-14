@@ -10,11 +10,11 @@ public class Category_element {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
-
-
     private String name;
-
     private String code;
+
+    public Category_element() {
+    }
 
     public long getId() {
         return id;

@@ -6,28 +6,22 @@ import java.util.Set;
 
 @Entity
 public class Employee {
+    @ManyToMany(mappedBy = "receiver")
+    Set<Email> received;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "manager_id")
     private Employee manager;
-
     @OneToMany(mappedBy = "manager")
     private Set<Employee> subordinates = new HashSet<>();
-
     private String name;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Category_element role;
-
-
     private int dayOff_limit;
-
-
-    private String email;
-
+    @Column(name = "email")
+    private String email_address;
 
     public Employee() {
     }
@@ -49,11 +43,11 @@ public class Employee {
     }
 
     public String getEmail() {
-        return email;
+        return email_address;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email_address) {
+        this.email_address = email_address;
     }
 
     public Employee getManager_id() {
