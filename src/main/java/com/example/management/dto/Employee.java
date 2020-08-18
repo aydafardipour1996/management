@@ -1,4 +1,4 @@
-package com.example.management.DTO;
+package com.example.management.dto;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -6,20 +6,26 @@ import java.util.Set;
 
 @Entity
 public class Employee {
-    @ManyToMany(mappedBy = "receiver")
-    Set<Email> received;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "manager_id")
     private Employee manager;
+
     @OneToMany(mappedBy = "manager")
     private Set<Employee> subordinates = new HashSet<>();
+
     private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category_element role;
+    private CategoryElement role;
+
+    @Column
     private int dayOff_limit;
+
     @Column(name = "email")
     private String email_address;
 
@@ -58,11 +64,11 @@ public class Employee {
         this.manager = manager;
     }
 
-    public Category_element getRole() {
+    public CategoryElement getRole() {
         return role;
     }
 
-    public void setRole(Category_element role) {
+    public void setRole(CategoryElement role) {
         this.role = role;
     }
 

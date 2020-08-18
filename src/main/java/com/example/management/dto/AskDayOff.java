@@ -1,7 +1,6 @@
-package com.example.management.DTO;
+package com.example.management.dto;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class AskDayOff {
@@ -12,19 +11,15 @@ public class AskDayOff {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
-    @Basic
-    @Temporal(TemporalType.TIME)
-    private java.util.Date start;
+    private String start;
 
-    @Basic
-    @Temporal(TemporalType.TIME)
-    private java.util.Date end;
+    private String end;
 
     @Transient
     private int deducted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category_element status;
+    private CategoryElement status;
 
     public AskDayOff() {
     }
@@ -45,19 +40,19 @@ public class AskDayOff {
         this.employee = employee;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
@@ -69,11 +64,11 @@ public class AskDayOff {
         this.deducted = deducted;
     }
 
-    public Category_element getStatus() {
+    public CategoryElement getStatus() {
         return status;
     }
 
-    public void setStatus(Category_element status) {
+    public void setStatus(CategoryElement status) {
         this.status = status;
     }
 }

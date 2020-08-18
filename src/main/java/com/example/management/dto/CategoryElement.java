@@ -1,9 +1,9 @@
-package com.example.management.DTO;
+package com.example.management.dto;
 
 import javax.persistence.*;
 
 @Entity
-public class Category_element {
+public class CategoryElement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -13,7 +13,7 @@ public class Category_element {
     private String name;
     private String code;
 
-    public Category_element() {
+    public CategoryElement() {
     }
 
     public long getId() {

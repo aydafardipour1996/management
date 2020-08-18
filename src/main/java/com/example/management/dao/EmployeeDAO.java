@@ -1,6 +1,7 @@
-package com.example.management.DAO;
+package com.example.management.dao;
 
-import com.example.management.DTO.Employee;
+import com.example.management.dto.Employee;
+import com.example.management.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +56,13 @@ public class EmployeeDAO implements IDao<Employee> {
     public List<Employee> fetchAllByName(String name) {
         return null;
     }
+
+    @Override
+    public List<Employee> fetchAllById(long id) {
+        return null;
+    }
+
+
 
 
 

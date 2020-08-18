@@ -1,17 +1,18 @@
-package com.example.management.DTO;
+package com.example.management.dto;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Email {
     @ManyToMany
     @JoinTable(
-            name = "receive ",
+            name = "receivers ",
             joinColumns = @JoinColumn(name = "email_id"),
-            inverseJoinColumns = @JoinColumn(name = "receiver"))
-    Set<Employee> receiver;
+            inverseJoinColumns = @JoinColumn(name = "receiver" ))
+    List<Employee> receiver;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,11 +21,17 @@ public class Email {
     private String subject;
     private boolean hasAttachment;
 
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date date;
+    private String date;
 
     public Email() {
+    }
+
+    public List<Employee> getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(List<Employee> receiver) {
+        this.receiver = receiver;
     }
 
     public Employee getSender() {
@@ -59,11 +66,11 @@ public class Email {
         this.hasAttachment = hasAttachment;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

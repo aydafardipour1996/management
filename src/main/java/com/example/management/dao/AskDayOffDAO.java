@@ -1,6 +1,7 @@
-package com.example.management.DAO;
+package com.example.management.dao;
 
-import com.example.management.DTO.AskDayOff;
+import com.example.management.dto.AskDayOff;
+import com.example.management.repository.DayOffRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +43,7 @@ public class AskDayOffDAO implements IDao<AskDayOff> {
 
     @Override
     public AskDayOff fetchById(long id) {
-        return null;
+        return dayOffRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -55,9 +56,10 @@ public class AskDayOffDAO implements IDao<AskDayOff> {
         return null;
     }
 
+    @Override
+    public List<AskDayOff> fetchAllById(long id) {
+        return dayOffRepo.findByEmployee_Id(id);
+    }
 
-/*    @Override
-    public Employee setEmployeeManager(long id) {
-        return null;
-    }*/
+
 }

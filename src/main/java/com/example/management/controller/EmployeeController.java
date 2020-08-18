@@ -1,14 +1,12 @@
-package com.example.management;
+package com.example.management.controller;
 
-import com.example.management.DTO.AskDayOff;
-import com.example.management.DTO.Category;
-import com.example.management.DTO.Category_element;
-import com.example.management.DTO.Employee;
+import com.example.management.dto.Category;
+import com.example.management.dto.CategoryElement;
+import com.example.management.dto.Employee;
 import com.example.management.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,24 +32,6 @@ public class EmployeeController {
         return "start";
     }
 
-    public void saveAskDayOff(AskDayOff askDayOff) {
-        Employee employee = employeeService.setEmployeeManager(5L);
-        Date start= new Date(1595976019);
-        Date end = new Date(1596667219);
-        int deducted = ((1596667219-1595976019) / (1000*60*60*24));
-        askDayOff.setEmployee(employee);
-        askDayOff.setStart(start);
-        askDayOff.setEnd(end);
-        askDayOff.setDeducted(deducted);
-
-
-        try {
-            employeeService.saveDayOff(askDayOff);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-    }
 
     public void saveCat(Category category) {
         category.setName("status");
@@ -63,11 +43,11 @@ public class EmployeeController {
         }
     }
 
-    public void saveCatElement(Category_element category_element) {
+    public void saveCatElement(CategoryElement category_element) {
         Category category = employeeService.fetchByName("status");
         category_element.setCategory(category);
-        category_element.setName("در انتظار مشاهده");
-        category_element.setCode("waiting to be seen");
+        category_element.setName("تایید شده");
+        category_element.setCode("accepted");
         try {
             employeeService.saveElement(category_element);
         } catch (Exception e) {
@@ -77,15 +57,15 @@ public class EmployeeController {
     }
 
     public void printCategoryElements(String name) {
-        List<Category_element> category_elements = employeeService.findAllElements(name);
-        for (Category_element category_element:category_elements){
+        List<CategoryElement> category_elements = employeeService.findAllElements(name);
+        for (CategoryElement category_element : category_elements) {
             System.out.println(category_element.getName());
         }
     }
 
     public String saveEmployee(Employee employee) {
-        Employee mEmployee = employeeService.setEmployeeManager(1L);
-        Category_element category_element = employeeService.fetchByCode("Tester");
+        Employee mEmployee = employeeService.fetchEmployeeById(7L);
+        CategoryElement category_element = employeeService.fetchByCode("Tester");
         employee.setName("آیدا فردی پور");
         employee.setDayOff_limit(10);
         employee.setEmail("l.ayda@yahoo.com");

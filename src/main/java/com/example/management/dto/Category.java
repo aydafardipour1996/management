@@ -1,4 +1,4 @@
-package com.example.management.DTO;
+package com.example.management.dto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private List<Category_element> elements = new ArrayList<>();
+    private List<CategoryElement> elements = new ArrayList<>();
 
     public Category() {
     }

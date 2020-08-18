@@ -1,4 +1,4 @@
-package com.example.management.DTO;
+package com.example.management.dto;
 
 import javax.persistence.*;
 

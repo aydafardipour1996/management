@@ -1,16 +1,17 @@
 package com.example.management.service;
 
-import com.example.management.DAO.*;
-import com.example.management.DTO.AskDayOff;
-import com.example.management.DTO.Category;
-import com.example.management.DTO.Category_element;
-import com.example.management.DTO.Employee;
+import com.example.management.dao.*;
+import com.example.management.dto.AskDayOff;
+import com.example.management.dto.Category;
+import com.example.management.dto.CategoryElement;
+import com.example.management.dto.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class EmployeeService implements IEmployeeService {
 
     @Autowired
@@ -37,7 +38,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public boolean saveElement(Category_element category_element) throws Exception {
+    public boolean saveElement(CategoryElement category_element) throws Exception {
         catElementDAO.save(category_element);
         return false;
     }
@@ -65,12 +66,22 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Employee setEmployeeManager(long id) {
+    public AskDayOff fetchAskDayOffById(long id) {
+        return askDayOffDAO.fetchById(id);
+    }
+
+    @Override
+    public Employee fetchEmployeeById(long id) {
         return employeeDAO.fetchById(id);
     }
 
     @Override
-    public Category_element fetchByCode(String code) {
+    public List<Employee> fetchAllEmployeesById(long id) {
+        return employeeDAO.fetchAllById(id);
+    }
+
+    @Override
+    public CategoryElement fetchByCode(String code) {
         return catElementDAO.fetch(code);
     }
 
@@ -80,9 +91,36 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Category_element> findAllElements(String name) {
+    public List<CategoryElement> findAllElements(String name) {
         return catElementDAO.fetchAllByName(name);
     }
 
+    @Override
+    public boolean checkManager(long manager_id, long subordinate_id) {
+        Employee subordinate = employeeDAO.fetchById(subordinate_id);
+        return manager_id == subordinate.getManager_id().getId();
+    }
+
+    @Override
+    public List<AskDayOff> fetchAllAskDayOff(long id) {
+        return askDayOffDAO.fetchAllById(id);
+    }
+
+    @Override
+    public List<Employee> addReceiver(long[] id) {
+        List<Employee> receivers = new ArrayList<>();
+        for (long l : id) {
+            receivers.add(fetchEmployeeById(l));
+        }
+        return receivers;
+    }
+
+    public void updateEmployeeLimit(long id, int deducted) throws Exception {
+        Employee employee = employeeDAO.fetchById(id);
+        employee.setDayOff_limit(employee.getDayOff_limit() - deducted);
+        employeeDAO.save(employee);
+
+
+    }
 
 }

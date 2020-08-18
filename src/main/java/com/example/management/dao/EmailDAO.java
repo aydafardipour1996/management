@@ -1,6 +1,7 @@
-package com.example.management.DAO;
+package com.example.management.dao;
 
-import com.example.management.DTO.Email;
+import com.example.management.dto.Email;
+import com.example.management.repository.EmailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -56,7 +57,10 @@ public class EmailDAO implements IDao<Email>{
         return null;
     }
 
-
+    @Override
+    public List<Email> fetchAllById(long id) {
+        return null;
+    }
 
 
 }

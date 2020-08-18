@@ -1,10 +1,10 @@
 package com.example.management.service;
 
-import com.example.management.DAO.IDao;
-import com.example.management.DTO.AskDayOff;
-import com.example.management.DTO.Category;
-import com.example.management.DTO.Category_element;
-import com.example.management.DTO.Employee;
+import com.example.management.dao.IDao;
+import com.example.management.dto.AskDayOff;
+import com.example.management.dto.Category;
+import com.example.management.dto.CategoryElement;
+import com.example.management.dto.Employee;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface IEmployeeService {
 
     boolean save(Employee employee) throws Exception;
 
-    boolean saveElement(Category_element category_element) throws Exception;
+    boolean saveElement(CategoryElement category_element) throws Exception;
 
     boolean saveCat(Category category) throws Exception;
 
@@ -24,13 +24,23 @@ public interface IEmployeeService {
 
     void setEmployeeDAO(IDao employeeDAO);
 
-    Employee setEmployeeManager(long id);
+    AskDayOff fetchAskDayOffById(long id);
 
-    Category_element fetchByCode(String code);
+    Employee fetchEmployeeById(long id);
+
+    List<Employee> fetchAllEmployeesById(long id);
+
+    CategoryElement fetchByCode(String code);
 
     Category fetchByName(String name);
 
-    List<Category_element> findAllElements(String name);
+    List<CategoryElement> findAllElements(String name);
+
+    boolean checkManager(long manager_id, long subordinate);
+
+    List<AskDayOff> fetchAllAskDayOff(long id);
+
+    List<Employee> addReceiver(long[] id);
 
 
 }
