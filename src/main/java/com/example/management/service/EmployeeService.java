@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeService implements IEmployeeService {
@@ -107,8 +109,8 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> addReceiver(long[] id) {
-        List<Employee> receivers = new ArrayList<>();
+    public Set<Employee> addReceiver(long[] id) {
+        Set<Employee> receivers = new HashSet<>();
         for (long l : id) {
             receivers.add(fetchEmployeeById(l));
         }

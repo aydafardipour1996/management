@@ -81,6 +81,24 @@ public class EmployeeController {
         return "start";
     }
 
+    public String updateEmployee(long id) {
+        Employee employee = employeeService.fetchEmployeeById(id);
+        CategoryElement category_element = employeeService.fetchByCode("Tester");
+        employee.setName("فرزانه جلیلی");
+        employee.setDayOff_limit(100);
+        employee.setEmail("l.ayda@yahoo.com");
+        employee.setRole(category_element);
+
+        try {
+            employeeService.save(employee);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return "error";
+        }
+        return "start";
+    }
+
 /*    public String saveEmployee(String name, int limit, String email, long role, long manager) {
         Employee mEmployee = employeeService.setEmployeeManager(manager);
         Category_element element=

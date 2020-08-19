@@ -7,6 +7,7 @@ import com.example.management.dto.CategoryElement;
 import com.example.management.dto.Employee;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IEmployeeService {
 
@@ -40,7 +41,7 @@ public interface IEmployeeService {
 
     List<AskDayOff> fetchAllAskDayOff(long id);
 
-    List<Employee> addReceiver(long[] id);
+    Set<Employee> addReceiver(long[] id);
 
 
 }

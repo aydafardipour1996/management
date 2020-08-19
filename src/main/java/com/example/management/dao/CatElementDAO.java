@@ -1,6 +1,7 @@
 package com.example.management.dao;
 
 import com.example.management.dto.CategoryElement;
+import com.example.management.dto.Employee;
 import com.example.management.repository.CatElementRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,6 +54,11 @@ public class CatElementDAO implements IDao<CategoryElement> {
 
     @Override
     public List<CategoryElement> fetchAllById(long id) {
+        return null;
+    }
+
+    @Override
+    public List<CategoryElement> fetchByEmployee(Employee employee) {
         return null;
     }
 

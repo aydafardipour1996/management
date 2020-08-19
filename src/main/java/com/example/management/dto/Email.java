@@ -1,18 +1,17 @@
 package com.example.management.dto;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Email {
-    @ManyToMany
+
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "receivers ",
+            name = "receivers",
             joinColumns = @JoinColumn(name = "email_id"),
-            inverseJoinColumns = @JoinColumn(name = "receiver" ))
-    List<Employee> receiver;
+            inverseJoinColumns = @JoinColumn(name = "receiver", referencedColumnName = "id"))
+    Set<Employee> receiver;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -26,11 +25,11 @@ public class Email {
     public Email() {
     }
 
-    public List<Employee> getReceiver() {
+    public Set<Employee> getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(List<Employee> receiver) {
+    public void setReceiver(Set<Employee> receiver) {
         this.receiver = receiver;
     }
 

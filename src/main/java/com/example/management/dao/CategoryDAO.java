@@ -1,6 +1,7 @@
 package com.example.management.dao;
 
 import com.example.management.dto.Category;
+import com.example.management.dto.Employee;
 import com.example.management.repository.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,6 +54,11 @@ public class CategoryDAO implements IDao<Category> {
 
     @Override
     public List<Category> fetchAllById(long id) {
+        return null;
+    }
+
+    @Override
+    public List<Category> fetchByEmployee(Employee employee) {
         return null;
     }
 

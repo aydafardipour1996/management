@@ -10,12 +10,8 @@ import com.example.management.utility.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-
-import static org.aspectj.bridge.MessageUtil.fail;
+import java.util.Set;
 
 @Controller
 public class EmailController {
@@ -28,7 +24,7 @@ public class EmailController {
     public void saveEmail(Email email) {
         Employee sender = employeeService.fetchEmployeeById(8L);
 
-        List<Employee> receivers = employeeService.addReceiver(new long[]{7, 15});
+        Set<Employee> receivers = employeeService.addReceiver(new long[]{7, 15});
         String date = CheckUtil.getCurrentDate();
         email.setDate("99/06/07");
         email.setHasAttachment(false);
@@ -37,7 +33,7 @@ public class EmailController {
         email.setSubject("hello");
         email.setDate(date);
         EmailLob emailLob = new EmailLob();
-        emailLob.setAttachment( FileUtil.loadBytes("night.png"));
+        emailLob.setAttachment(FileUtil.loadBytes("night.png"));
         emailLob.setContent("i am currently very busy because im working on my ne project. thanks a lot");
         emailLob.setEmail(email);
 
@@ -47,5 +43,26 @@ public class EmailController {
             e.printStackTrace();
         }
     }
+
+    public void printEmails() {
+        List<Email> emails = emailService.fetchBySender(8L);
+        for (Email email : emails) {
+            System.out.println(email.getId());
+        }
+    }
+
+    public void deleteEmail(long id) {
+        EmailLob emailLob = emailService.fetchEmailLobById(id);
+        Email email = emailLob.getEmail();
+
+
+        try {
+            emailService.deleteEmailLob(emailLob);
+            emailService.deleteEmail(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

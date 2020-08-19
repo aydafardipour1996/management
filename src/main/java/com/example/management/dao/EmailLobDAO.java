@@ -1,9 +1,8 @@
 package com.example.management.dao;
 
-import com.example.management.dto.Email;
 import com.example.management.dto.EmailLob;
+import com.example.management.dto.Employee;
 import com.example.management.repository.EmailLobRepo;
-import com.example.management.repository.EmailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
 
 
 @Component
-public class EmailLobDAO implements IDao<EmailLob>{
+public class EmailLobDAO implements IDao<EmailLob> {
 
     @Autowired
     EmailLobRepo emailLobRepo;
@@ -41,12 +40,12 @@ public class EmailLobDAO implements IDao<EmailLob>{
 
     @Override
     public void delete(EmailLob emailLob) {
-
+        emailLobRepo.delete(emailLob);
     }
 
     @Override
     public EmailLob fetchById(long id) {
-        return null;
+        return emailLobRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -61,6 +60,11 @@ public class EmailLobDAO implements IDao<EmailLob>{
 
     @Override
     public List<EmailLob> fetchAllById(long id) {
+        return null;
+    }
+
+    @Override
+    public List<EmailLob> fetchByEmployee(Employee employee) {
         return null;
     }
 

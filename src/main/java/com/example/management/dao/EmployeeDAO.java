@@ -62,16 +62,10 @@ public class EmployeeDAO implements IDao<Employee> {
         return null;
     }
 
+    @Override
+    public List<Employee> fetchByEmployee(Employee employee) {
+        return null;
+    }
 
-
-
-
-
-
-
-/*    public Employee setEmployeeManager(long id) {
-
-        return employeeRepo.findById(id).orElse(null);
-    }*/
 
 }
