@@ -8,6 +8,12 @@ import com.example.management.utility.CheckUtil;
 import com.example.management.utility.ShamsiDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Objects;
@@ -53,10 +59,14 @@ public class AskDayOffController {
 
     }
 
+    public AskDayOff loadAskDayOff(long askDayOffId) {
+        return employeeService.fetchAskDayOffById(askDayOffId);
+    }
+
     public void updateAskDayOffStatus(long askDayOffId, String code) {
 
         CategoryElement status = employeeService.fetchByCode(code);
-        AskDayOff askDayOff = employeeService.fetchAskDayOffById(askDayOffId);
+        AskDayOff askDayOff = loadAskDayOff(askDayOffId);
         CheckUtil checkUtil = new CheckUtil();
         int deducted = (int) checkUtil.deducted(new ShamsiDate(askDayOff.getStart()), new ShamsiDate(askDayOff.getEnd()));
         if (employeeService.checkManager(7, askDayOff.getEmployee().getId())) {
@@ -76,5 +86,36 @@ public class AskDayOffController {
             }
         }
     }
+
+    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+    public String update(@ModelAttribute("askDayOff") AskDayOff askDayOff,
+                         BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "error";
+        }
+        model.addAttribute("status", askDayOff.getStatus());
+        updateAskDayOffStatus(askDayOff.getId(), "code");
+        return "statusView";
+    }
+
+    @RequestMapping(value = "/DayOff", method = RequestMethod.GET)
+    public ModelAndView showForm(long id) {
+        AskDayOff askDayOff = loadAskDayOff(id);
+        return new ModelAndView("askDayOffHome", "askDayOff", askDayOff);
+    }
+
+    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+    public String submit(@ModelAttribute("askDayOff") AskDayOff askDayOff,
+                         BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "error";
+        }
+        model.addAttribute("employee_id", askDayOff.getEmployee().getId());
+        model.addAttribute("start", askDayOff.getStart());
+        model.addAttribute("end", askDayOff.getEnd());
+        updateAskDayOffStatus(askDayOff.getId(), "code");
+        return "statusView";
+    }
+
 
 }

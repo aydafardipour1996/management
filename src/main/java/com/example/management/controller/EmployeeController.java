@@ -6,6 +6,12 @@ import com.example.management.dto.Employee;
 import com.example.management.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -99,22 +105,41 @@ public class EmployeeController {
         return "start";
     }
 
-/*    public String saveEmployee(String name, int limit, String email, long role, long manager) {
-        Employee mEmployee = employeeService.setEmployeeManager(manager);
-        Category_element element=
-        Employee employee=new Employee();
-        employee.setName(name);
-        employee.setDayOff_limit(limit);
-        employee.setEmail(email);
-        employee.setRole(null);
-        employee.setManager_id(mEmployee);
-        try {
-            employeeService.save(employee);
-        } catch (Exception e) {
-            e.printStackTrace();
+    /*    public String saveEmployee(String name, int limit, String email, long role, long manager) {
+            Employee mEmployee = employeeService.setEmployeeManager(manager);
+            Category_element element=
+            Employee employee=new Employee();
+            employee.setName(name);
+            employee.setDayOff_limit(limit);
+            employee.setEmail(email);
+            employee.setRole(null);
+            employee.setManager_id(mEmployee);
+            try {
+                employeeService.save(employee);
+            } catch (Exception e) {
+                e.printStackTrace();
 
+                return "error";
+            }
+            return "start";
+        }*/
+
+   @RequestMapping(value = "/employee", method = RequestMethod.GET)
+    public ModelAndView showForm(long id) {
+       Employee employee= employeeService.fetchEmployeeById(id);
+        return new ModelAndView("employeeHome", "employee",employee );
+    }
+
+    @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+    public String submit(@ModelAttribute("employee") Employee employee,
+                         BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
             return "error";
         }
-        return "start";
-    }*/
+        model.addAttribute("name", employee.getName());
+        model.addAttribute("email", employee.getEmail());
+        model.addAttribute("id", employee.getId());
+        return "employeeView";
+    }
+
 }
