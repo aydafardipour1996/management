@@ -40,7 +40,7 @@ public class EmployeeController {
 
 
     public void saveCat(Category category) {
-        category.setName("status");
+        category.setName("role");
         try {
             employeeService.saveCat(category);
         } catch (Exception e) {
@@ -124,11 +124,18 @@ public class EmployeeController {
             return "start";
         }*/
 
-   @RequestMapping(value = "/employee", method = RequestMethod.GET)
-    public ModelAndView showForm(long id) {
-       Employee employee= employeeService.fetchEmployeeById(id);
-        return new ModelAndView("employeeHome", "employee",employee );
+    @RequestMapping(value = "/employee", method = RequestMethod.GET)
+    public ModelAndView showForm() {
+        Employee employee = employeeService.fetchEmployeeById(15L);
+        return new ModelAndView("employeeHome", "employee", employee);
     }
+
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String showLoginPage(ModelMap model) {
+        //  saveCat(new Category());
+        return "welcome";
+    }
+
 
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
     public String submit(@ModelAttribute("employee") Employee employee,
@@ -139,7 +146,7 @@ public class EmployeeController {
         model.addAttribute("name", employee.getName());
         model.addAttribute("email", employee.getEmail());
         model.addAttribute("id", employee.getId());
-        return "employeeView";
+        return "employeeHome";
     }
 
 }

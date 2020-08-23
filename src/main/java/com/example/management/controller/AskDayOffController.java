@@ -104,7 +104,7 @@ public class AskDayOffController {
         return new ModelAndView("askDayOffHome", "askDayOff", askDayOff);
     }
 
-    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
     public String submit(@ModelAttribute("askDayOff") AskDayOff askDayOff,
                          BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
@@ -115,7 +115,7 @@ public class AskDayOffController {
         model.addAttribute("end", askDayOff.getEnd());
         updateAskDayOffStatus(askDayOff.getId(), "code");
         return "statusView";
-    }
+    }*/
 
 
 }
